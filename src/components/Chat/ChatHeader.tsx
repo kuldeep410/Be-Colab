@@ -25,6 +25,8 @@ const ChatHeader: FC<ChatHeaderProps> = ({ conversation }) => {
   const [isGroupMembersOpened, setIsGroupMembersOpened] = useState(false);
   const [isViewMediaOpened, setIsViewMediaOpened] = useState(false);
 
+
+
   return (
     <>
       <div className="border-dark-lighten flex h-20 items-center justify-between border-b px-5">
@@ -37,11 +39,25 @@ const ChatHeader: FC<ChatHeaderProps> = ({ conversation }) => {
           ) : (
             <>
               {conversation.users.length === 2 ? (
-                <img
-                  className="h-10 w-10 rounded-full"
-                  src={IMAGE_PROXY(filtered?.[0]?.data()?.photoURL)}
-                  alt=""
-                />
+                <>
+                  <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}>
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src={IMAGE_PROXY(filtered?.[0]?.data()?.photoURL)}
+                      alt=""
+                    />
+                    <p style={{
+                      fontSize: "0.8rem",
+                      fontWeight: "bold",
+                      color: "#8c8c8c",
+                      alignSelf: "center",
+                      textAlign: "center",
+                    }}>{filtered?.[0]?.data()?.position?.status}</p>
+                  </div>
+                </>
               ) : (
                 <>
                   {conversation?.group?.groupImage ? (
@@ -76,9 +92,9 @@ const ChatHeader: FC<ChatHeaderProps> = ({ conversation }) => {
               {conversation.users.length > 2 && conversation?.group?.groupName
                 ? conversation.group.groupName
                 : filtered
-                    ?.map((user) => user.data()?.displayName)
-                    .slice(0, 3)
-                    .join(", ")}
+                  ?.map((user) => user.data()?.displayName)
+                  .slice(0, 3)
+                  .join(", ")}
             </p>
           )}
         </div>
@@ -118,3 +134,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({ conversation }) => {
 };
 
 export default ChatHeader;
+function data(data: any) {
+  throw new Error("Function not implemented.");
+}
+

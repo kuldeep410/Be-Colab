@@ -45,9 +45,8 @@ const SelectConversation: FC<SelectConversationProps> = ({
     return (
       <Link
         to={`/${conversationId}`}
-        className={`hover:bg-dark-lighten relative flex items-stretch gap-2 py-2 px-5 transition duration-300 ${
-          conversationId === id ? "!bg-[#263342]" : ""
-        }`}
+        className={`hover:bg-dark-lighten relative flex items-stretch gap-2 py-2 px-5 transition duration-300 ${conversationId === id ? "!bg-[#263342]" : ""
+          }`}
       >
         <img
           className="h-14 w-14 flex-shrink-0 rounded-full object-cover"
@@ -70,7 +69,7 @@ const SelectConversation: FC<SelectConversationProps> = ({
           <>
             {lastMessage?.lastMessageId !== null &&
               lastMessage?.lastMessageId !==
-                conversation.seen[currentUser?.uid as string] && (
+              conversation.seen[currentUser?.uid as string] && (
                 <div className="bg-primary absolute top-1/2 right-4 h-[10px] w-[10px] -translate-y-1/2 rounded-full"></div>
               )}
           </>
@@ -81,9 +80,8 @@ const SelectConversation: FC<SelectConversationProps> = ({
   return (
     <Link
       to={`/${conversationId}`}
-      className={`hover:bg-dark-lighten group relative flex items-stretch gap-2 py-2 px-5 transition duration-300 ${
-        conversationId === id ? "!bg-[#252F3C]" : ""
-      }`}
+      className={`hover:bg-dark-lighten group relative flex items-stretch gap-2 py-2 px-5 transition duration-300 ${conversationId === id ? "!bg-[#252F3C]" : ""
+        }`}
     >
       {conversation?.group?.groupImage ? (
         <img
@@ -99,9 +97,8 @@ const SelectConversation: FC<SelectConversationProps> = ({
             alt=""
           />
           <img
-            className={`border-dark group-hover:border-dark-lighten absolute bottom-0 left-0 z-[1] h-10 w-10 flex-shrink-0 rounded-full border-[3px] object-cover transition duration-300 ${
-              conversationId === id ? "!border-[#252F3C]" : ""
-            }`}
+            className={`border-dark group-hover:border-dark-lighten absolute bottom-0 left-0 z-[1] h-10 w-10 flex-shrink-0 rounded-full border-[3px] object-cover transition duration-300 ${conversationId === id ? "!border-[#252F3C]" : ""
+              }`}
             src={IMAGE_PROXY(filtered?.[1]?.data()?.photoURL)}
             alt=""
           />
@@ -127,7 +124,7 @@ const SelectConversation: FC<SelectConversationProps> = ({
         <>
           {lastMessage?.lastMessageId !== null &&
             lastMessage?.lastMessageId !==
-              conversation.seen[currentUser?.uid as string] && (
+            conversation.seen[currentUser?.uid as string] && (
               <div className="bg-primary absolute top-1/2 right-4 h-[10px] w-[10px] -translate-y-1/2 rounded-full"></div>
             )}
         </>

@@ -10,6 +10,9 @@ import PrivateRoute from "./components/PrivateRoute";
 import SignIn from "./pages/SignIn";
 import { onAuthStateChanged } from "firebase/auth";
 import { useStore } from "./store";
+import AddPosition from "./components/Features/Position/AddPosition";
+import AssignWork from "./pages/AsignWork";
+import Info from "./pages/Info/Info";
 
 const App: FC = () => {
   const currentUser = useStore((state) => state.currentUser);
@@ -48,6 +51,9 @@ const App: FC = () => {
         }
       />
       <Route path="sign-in" element={<SignIn />} />
+      <Route path="/cinfo/" element={<Info />} />
+      <Route path="/addposition/" element={<AddPosition />} />
+      <Route path="/assignwork/" element={<AssignWork currentUser={currentUser} />} />
       <Route
         path=":id"
         element={
@@ -56,6 +62,8 @@ const App: FC = () => {
           </PrivateRoute>
         }
       />
+
+      <Route path="*" element={<div>Not Found</div>} />
     </Routes>
   );
 };

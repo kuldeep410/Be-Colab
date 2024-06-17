@@ -45,10 +45,10 @@ const SignIn: FC = () => {
         <div className="w-full max-w-[1100px]">
           <div className="flex justify-between">
             <div className="flex items-center gap-2">
-              <img className="h-8 w-8" src="/icon.svg" alt="" />
-              <span className="text-2xl">FireVerse</span>
+              <img className="h-10 w-10" src="/icon.png" alt="" />
+              <span className="text-2xl">PlambIndia</span>
             </div>
-            <a
+            {/* <a
               href="https://github.com/napthedev/fireverse"
               target="_blank"
               rel="noopener noreferrer"
@@ -56,21 +56,21 @@ const SignIn: FC = () => {
             >
               <i className="bx bxl-github"></i>
               <span>Github</span>
-            </a>
+            </a> */}
           </div>
 
           <div className="flex flex-col-reverse gap-10 md:mt-5 md:flex-row md:gap-5 lg:mt-10">
             <div className="flex-1">
-              <img className="h-auto w-full" src="/illustration.svg" alt="" />
+              <img className="h-auto w-full" src="/teamwork.gif" alt="" />
             </div>
 
             <div className="mt-12 flex flex-1 flex-col items-center gap-4 md:items-start lg:mt-24">
               <h1 className="text-center text-3xl md:text-left md:text-4xl">
-                The best place for messaging
+                The best place for Co-Working
               </h1>
               <p className="text-center text-xl md:text-left md:text-2xl">
                 It's free, fast and secure. We make it easy and fun to stay
-                close to your favourite people.
+                close to your favourite team people.
               </p>
 
               <button
@@ -92,6 +92,60 @@ const SignIn: FC = () => {
 
                 <span>Sign In With Facebook</span>
               </button>
+            </div>
+          </div>
+
+
+
+          <div className="flex flex-col-reverse gap-20 md:mt-5 md:flex-row md:gap-5 lg:mt-20">
+            <div className="flex-1">
+              <img className="h-auto w-full" src="/encrypted.gif" alt="" />
+            </div>
+
+            <div className="mt-12 flex flex-1 flex-col items-center gap-4 md:items-start lg:mt-24">
+              <h1 className="text-center text-3xl md:text-left md:text-4xl">
+                End-To-End Encrypted Messages
+              </h1>
+              <p className="text-center text-xl md:text-left md:text-2xl">
+                Manage your work with Real Time Chat, This conversion is End-to-End Encrypted and your work will also secure.
+              </p>
+
+              <button
+                disabled={loading}
+                onClick={() => handleSignIn(new GoogleAuthProvider())}
+                className="flex min-w-[250px] cursor-pointer items-center gap-3 rounded-md bg-white p-3 text-black transition duration-300 hover:brightness-90 disabled:!cursor-default disabled:!brightness-75 justify-center"
+              >
+                {/* <img className="h-6 w-6" src="/google.svg" alt="" /> */}
+
+                <span>Learn More</span>
+              </button>
+            </div>
+          </div>
+
+
+          <div className="flex flex-col-reverse gap-20 md:mt-5 md:flex-row md:gap-5 lg:mt-20">
+            <div className="flex-1">
+              <img className="h-auto w-full" src="./business.gif" alt="" />
+            </div>
+
+            <div className="mt-12 flex flex-1 flex-col items-center gap-4 md:items-start lg:mt-24">
+              <h1 className="text-center text-3xl md:text-left md:text-4xl">
+                Manage Your Work With Management
+              </h1>
+              <p className="text-center text-xl md:text-left md:text-2xl">
+                Manage your team with assinable Task as well manage your system.
+              </p>
+
+              <button
+                disabled={loading}
+                onClick={() => handleSignIn(new GoogleAuthProvider())}
+                className="flex min-w-[250px] cursor-pointer items-center gap-3 rounded-md bg-white p-3 text-black transition duration-300 hover:brightness-90 disabled:!cursor-default disabled:!brightness-75 justify-center"
+              >
+                {/* <img className="h-6 w-6" src="/google.svg" alt="" /> */}
+
+                <span>Learn More</span>
+              </button>
+
             </div>
           </div>
         </div>

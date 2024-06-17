@@ -9,6 +9,7 @@ export interface ConversationInfo {
   seen: {
     [key: string]: string;
   };
+  
   updatedAt: {
     seconds: number;
     nanoseconds: number;

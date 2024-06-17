@@ -14,6 +14,7 @@ import { db } from "../../shared/firebase";
 import { signOut } from "firebase/auth";
 import { useCollectionQuery } from "../../hooks/useCollectionQuery";
 import { useStore } from "../../store";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const SideBar: FC = () => {
   const currentUser = useStore((state) => state.currentUser);
@@ -37,16 +38,15 @@ const SideBar: FC = () => {
   return (
     <>
       <div
-        className={`border-dark-lighten h-screen flex-shrink-0 overflow-y-auto overflow-x-hidden border-r ${
-          location.pathname !== "/"
+        className={`border-dark-lighten h-screen flex-shrink-0 overflow-y-auto overflow-x-hidden border-r ${location.pathname !== "/"
             ? "hidden w-[350px] md:!block"
             : "w-full md:!w-[350px]"
-        }`}
+          }`}
       >
         <div className="border-dark-lighten flex h-20 items-center justify-between border-b px-6">
           <Link to="/" className="flex items-center gap-1">
-            <img className="h-8 w-8" src="/icon.svg" alt="" />
-            <h1 className="text-xl">FireVerse</h1>
+            <img className="h-8 w-8" src="/icon.png" alt="" />
+            <h1 className="text-xl">PlambIndia</h1>
           </Link>
 
           <div className="flex items-center gap-1">
@@ -72,11 +72,10 @@ const SideBar: FC = () => {
                   />
 
                   <div
-                    className={`border-dark-lighten bg-dark absolute top-full right-0 flex w-max origin-top-right flex-col items-stretch overflow-hidden rounded-md border py-1 shadow-lg transition-all duration-200 ${
-                      isDropdownOpened
+                    className={`border-dark-lighten bg-dark absolute top-full right-0 flex w-max origin-top-right flex-col items-stretch overflow-hidden rounded-md border py-1 shadow-lg transition-all duration-200 ${isDropdownOpened
                         ? "visible scale-100 opacity-100"
                         : "invisible scale-0 opacity-0"
-                    }`}
+                      }`} 
                   >
                     <button
                       onClick={() => {
@@ -94,6 +93,30 @@ const SideBar: FC = () => {
                     >
                       <i className="bx bx-log-out text-xl"></i>
                       <span className="whitespace-nowrap">Sign Out</span>
+                    </button>
+
+                    <button
+                      onClick={() => signOut(auth)}
+                      className="hover:bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300"
+                    >
+                      {/* <FontAwesomeIcon icon="fa-solid fa-list-check" /> */}
+                      <span className="whitespace-nowrap">Management</span>
+                    </button>
+
+                    <button
+                      onClick={() => signOut(auth)}
+                      className="hover:bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300"
+                    >
+                      <i className="fa-solid fa-list-check"></i>
+                      <span className="whitespace-nowrap">Work Assign</span>
+                    </button>
+
+                    <button
+                      onClick={() => signOut(auth)}
+                      className="hover:bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300"
+                    >
+                      <i className="fa-solid fa-list-check"></i>
+                      <span className="whitespace-nowrap">Projects</span>
                     </button>
                   </div>
                 </div>

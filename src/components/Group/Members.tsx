@@ -1,7 +1,7 @@
 import { ConversationInfo, SavedUser } from "../../shared/types";
 import { FC, useState } from "react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Alert from "../Alert";
 import { IMAGE_PROXY } from "../../shared/constants";
@@ -9,13 +9,21 @@ import Spin from "react-cssfx-loading/src/Spin";
 import { db } from "../../shared/firebase";
 import { useStore } from "../../store";
 import { useUsersInfo } from "../../hooks/useUsersInfo";
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import { MdWorkOutline } from 'react-icons/md';
+import AddPosition from "../Features/Position/AddPosition";
+
 
 interface MembersProps {
   conversation: ConversationInfo;
+  conversationId: string;
 }
+
 
 const Members: FC<MembersProps> = ({ conversation }) => {
   const { id: conversationId } = useParams();
+  const [createConversationOpened, setCreateConversationOpened] = useState(false);
+
 
   const currentUser = useStore((state) => state.currentUser);
 
@@ -25,6 +33,7 @@ const Members: FC<MembersProps> = ({ conversation }) => {
 
   const [isAlertOpened, setIsAlertOpened] = useState(false);
   const [alertText, setAlertText] = useState("");
+
 
   const handleRemoveFromGroup = (uid: string) => {
     if (
@@ -47,6 +56,7 @@ const Members: FC<MembersProps> = ({ conversation }) => {
     }
   };
 
+
   const handleMakeAdmin = (uid: string) => {
     updateDoc(doc(db, "conversations", conversationId as string), {
       "group.admins": arrayUnion(uid),
@@ -56,6 +66,18 @@ const Members: FC<MembersProps> = ({ conversation }) => {
     setIsAlertOpened(true);
     setAlertText("Done making an admin");
   };
+
+
+  const handleAddPosition = (uid: string) => {
+    navigate(`/addposition/`, { state: { uid, conversationId } });
+  }
+
+
+  const handleAssignWOrk = (uid: string) => {
+    console.log(uid);
+    navigate(`/assignwork/`, { state: { uid, conversationId } });
+  }
+
 
   if (loading || error)
     return (
@@ -84,37 +106,56 @@ const Members: FC<MembersProps> = ({ conversation }) => {
               {conversation.group?.admins?.includes(
                 currentUser?.uid as string
               ) && (
-                <div className="group relative flex-shrink-0" tabIndex={0}>
-                  <button>
-                    <i className="bx bx-dots-horizontal-rounded text-2xl"></i>
-                  </button>
+                  <div className="group relative flex-shrink-0" tabIndex={0}>
+                    <button>
+                      <i className="bx bx-dots-horizontal-rounded text-2xl"></i>
+                    </button>
 
-                  <div className="bg-dark-lighten border-dark-lighten invisible absolute top-full right-0 z-[1] flex w-max flex-col items-stretch rounded-lg border py-1 opacity-0 transition-all duration-300 group-focus-within:!visible group-focus-within:!opacity-100">
-                    {conversation.users.length > 3 && (
-                      <button
-                        onClick={() => handleRemoveFromGroup(user.uid)}
-                        className="bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:brightness-125"
-                      >
-                        <i className="bx bx-user-x text-2xl"></i>
-                        <span>
-                          {user.uid === currentUser?.uid
-                            ? "Leave group"
-                            : "Kick from group"}
-                        </span>
-                      </button>
-                    )}
-                    {user.uid !== currentUser?.uid && (
-                      <button
-                        onClick={() => handleMakeAdmin(user.uid)}
-                        className="bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:brightness-125"
-                      >
-                        <i className="bx bx-user-check text-2xl"></i>
-                        <span>Make an admin</span>
-                      </button>
-                    )}
+                    <div className="bg-dark-lighten border-dark-lighten invisible absolute top-full right-0 z-[1] flex w-max flex-col items-stretch rounded-lg border py-1 opacity-0 transition-all duration-300 group-focus-within:!visible group-focus-within:!opacity-100">
+                      {conversation.users.length > 3 && (
+                        <button
+                          onClick={() => handleRemoveFromGroup(user.uid)}
+                          className="bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:brightness-125"
+                        >
+                          <i className="bx bx-user-x text-2xl"></i>
+                          <span>
+                            {user.uid === currentUser?.uid
+                              ? "Leave group"
+                              : "Kick from group"}
+                          </span>
+                        </button>
+                      )}
+                      {user.uid !== currentUser?.uid && (
+                        <>
+                          <button
+                            onClick={() => handleMakeAdmin(user.uid)}
+                            className="bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:brightness-125"
+                          >
+                            <i className="bx bx-user-check text-2xl"></i>
+                            <span>Make an admin</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleAddPosition(user.uid)}
+                            className="bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:brightness-125"
+                          >
+                            <IoIosAddCircleOutline className="bx bx-user-check text-2xl" />
+                            <span>Add Position</span>
+                          </button>
+
+
+                          <button
+                            onClick={() => handleAssignWOrk(user.uid)}
+                            className="bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:brightness-125"
+                          >
+                            <MdWorkOutline className="bx bx-user-check text-2xl" />
+                            <span>Assign Work</span>
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
           ))}
       </div>
@@ -124,8 +165,24 @@ const Members: FC<MembersProps> = ({ conversation }) => {
         setIsOpened={setIsAlertOpened}
         text={alertText}
       />
+
+      {createConversationOpened && (
+        <AddPosition setIsOpened={setCreateConversationOpened} />
+      )}
     </>
   );
 };
 
 export default Members;
+function id(id: any) {
+  throw new Error("Function not implemented.");
+}
+
+function conversationId(conversationId: any) {
+  throw new Error("Function not implemented.");
+}
+
+function handleAddPosition(uid: string): void {
+  throw new Error("Function not implemented.");
+}
+

@@ -7,7 +7,7 @@ const PrivateRoute: FC = ({ children }) => {
   const currentUser = useStore((state) => state.currentUser);
   const location = useLocation();
 
-  if (!currentUser)
+  if (!currentUser) {
     return (
       <Navigate
         to={`/sign-in?redirect=${encodeURIComponent(
@@ -15,6 +15,17 @@ const PrivateRoute: FC = ({ children }) => {
         )}`}
       />
     );
+  }
+
+  // if (currentUser) {
+  //   return (
+  //     <Navigate
+  //       to={`/cinfo?redirect=${encodeURIComponent(
+  //         location.pathname + location.search
+  //       )}`}
+  //     />
+  //   )
+  // }
 
   return <>{children}</>;
 };

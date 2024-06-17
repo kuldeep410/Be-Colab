@@ -59,10 +59,10 @@ const CreateConversation: FC<CreateConversationProps> = ({ setIsOpened }) => {
         group:
           sorted.length > 2
             ? {
-                admins: [currentUser?.uid],
-                groupName: null,
-                groupImage: null,
-              }
+              admins: [currentUser?.uid],
+              groupName: null,
+              groupImage: null,
+            }
             : {},
         updatedAt: serverTimestamp(),
         seen: {},
